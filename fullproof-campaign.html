@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FullProof: A Marketing Case Study by David Lipshitz</title>
+<style>
+  :root{
+    --paper:#F3F1EC;
+    --ink:#1F2A2E;
+    --teal:#1F4E5F;
+    --gold:#C89B3C;
+    --muted:#8B857C;
+    --line:#D9D4C9;
+    --card:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3{
+    font-family:"Fraunces", Georgia, "Times New Roman", serif;
+    font-weight:600;
+    letter-spacing:-0.01em;
+    margin:0 0 0.4em 0;
+  }
+  .eyebrow{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:0.72rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--teal);
+    margin-bottom:0.6em;
+    display:block;
+  }
+  a{color:var(--teal);}
+  .wrap{max-width:920px;margin:0 auto;padding:0 24px;}
+
+  header.hero{
+    padding:96px 0 64px;
+    border-bottom:1px solid var(--line);
+  }
+  header.hero h1{
+    font-size:clamp(2.1rem, 5vw, 3.4rem);
+    max-width:14ch;
+  }
+  header.hero p.lede{
+    font-size:1.15rem;
+    max-width:60ch;
+    color:#3A423F;
+  }
+  .tagline{
+    display:inline-block;
+    margin-top:20px;
+    padding:10px 18px;
+    background:var(--teal);
+    color:#F3F1EC;
+    font-family:"Fraunces", serif;
+    font-style:italic;
+    font-size:1rem;
+    border-radius:2px;
+  }
+
+  section{padding:56px 0;border-bottom:1px solid var(--line);}
+  section:last-of-type{border-bottom:none;}
+
+  .brief-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:32px;
+    margin-top:24px;
+  }
+  .brief-grid .box{
+    background:var(--card);
+    border:1px solid var(--line);
+    padding:24px;
+    border-radius:3px;
+  }
+  .brief-grid .box h3{font-size:1rem;color:var(--teal);}
+
+  /* Week strip */
+  .week{
+    margin-top:32px;
+    display:flex;
+    flex-direction:column;
+    gap:0;
+  }
+  .day{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:24px;
+    padding:28px 0;
+    border-top:1px solid var(--line);
+    position:relative;
+  }
+  .day:first-child{border-top:none;}
+  .day .daylabel{
+    font-family:"Fraunces", serif;
+    font-size:1.3rem;
+    color:var(--teal);
+  }
+  .day .beat{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:0.68rem;
+    text-transform:uppercase;
+    letter-spacing:0.1em;
+    color:var(--gold);
+    display:block;
+    margin-top:4px;
+  }
+  .meta-row{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+    font-size:0.85rem;
+    color:var(--muted);
+    margin-bottom:12px;
+  }
+  .meta-row span strong{color:var(--ink);}
+  .copy-block{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-left:3px solid var(--gold);
+    padding:18px 20px;
+    border-radius:2px;
+    white-space:pre-line;
+  }
+  .copy-block + .copy-block{margin-top:12px;}
+  .onimage{
+    font-family:"Fraunces", serif;
+    font-style:italic;
+    font-size:1.05rem;
+    color:var(--teal);
+    margin-bottom:10px;
+  }
+
+  /* Cross platform */
+  .platform-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    margin-top:28px;
+  }
+  .platform-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:20px;
+  }
+  .platform-card h4{
+    font-family:"IBM Plex Mono", monospace;
+    font-size:0.75rem;
+    text-transform:uppercase;
+    letter-spacing:0.08em;
+    color:var(--teal);
+    margin-bottom:10px;
+  }
+
+  /* Standalone captions */
+  .caption-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    margin-top:28px;
+  }
+  .caption-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:3px;
+    padding:24px;
+  }
+  .caption-card h4{color:var(--teal);font-size:1rem;margin-bottom:14px;}
+  .shot-list{margin:0;padding-left:1.2em;font-size:0.95rem;}
+  .shot-list li{margin-bottom:6px;}
+
+  /* Personal section */
+  .personal{
+    background:#1F2A2E;
+    color:#F3F1EC;
+  }
+  .personal .eyebrow{color:var(--gold);}
+  .personal h2{color:#F3F1EC;}
+  .personal p.intro{color:#C9C4B8;max-width:60ch;}
+  .lyrics{
+    margin-top:24px;
+    font-family:"Fraunces", serif;
+    font-size:1.05rem;
+    line-height:1.9;
+    color:#EDE9DE;
+    max-width:56ch;
+  }
+  .chorus{
+    color:var(--gold);
+    font-style:italic;
+    margin:18px 0;
+  }
+  .verse{margin-bottom:20px;}
+
+  footer{
+    padding:48px 0 80px;
+    text-align:center;
+    color:var(--muted);
+    font-size:0.9rem;
+  }
+
+  @media (max-width:700px){
+    .brief-grid{grid-template-columns:1fr;}
+    .platform-grid{grid-template-columns:1fr;}
+    .caption-grid{grid-template-columns:1fr;}
+    .day{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="eyebrow">Marketing Case Study</span>
+    <h1>FullProof: a career portfolio, built while you work</h1>
+    <p class="lede">A mock B2B SaaS campaign: content strategy, platform adaptation, and copywriting, developed as a portfolio piece for a Junior Social Media Specialist application.</p>
+    <span class="tagline">"The burden of proof is on us, not you."</span>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">The Brief</span>
+    <h2>Where the idea came from</h2>
+    <div class="brief-grid">
+      <div class="box">
+        <h3>The problem</h3>
+        <p>Two years into a corporate internship, I had no organized record of the work I'd actually done: presentations, research, campaigns, partly because I hadn't kept track, and partly because the work itself belonged to the company.</p>
+      </div>
+      <div class="box">
+        <h3>The concept</h3>
+        <p>FullProof is a mock HR/L&amp;D tool that automatically builds an employee's career portfolio as they work, without ever exposing confidential company material, solving the exact problem I lived through.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Campaign</span>
+    <h2>One week, five beats</h2>
+    <p style="max-width:60ch;color:#3A423F;">A five-day content calendar built as a narrative arc: trigger, confrontation, hinge, callback, reveal, rather than five unrelated posts.</p>
+
+    <div class="week">
+      <div class="day">
+        <div>
+          <div class="daylabel">Mon</div>
+          <span class="beat">Trigger</span>
+        </div>
+        <div>
+          <div class="meta-row"><span><strong>Platform:</strong> LinkedIn</span><span><strong>Goal:</strong> Thought leadership / discussion-starter</span><span><strong>Format:</strong> Text + image</span></div>
+          <div class="copy-block">You're scrolling job postings. This one looks right: your experience, your field, decent pay.
+
+Then you hit it: "Portfolio required."
+
+Two years of work. Presentations you wrote, projects you carried, problems you solved under pressure. And somehow, none of it exists anywhere you can actually show someone.
+
+Has this happened to you? How did you handle it?</div>
+        </div>
+      </div>
+
+      <div class="day">
+        <div>
+          <div class="daylabel">Tue</div>
+          <span class="beat">Confrontation</span>
+        </div>
+        <div>
+          <div class="meta-row"><span><strong>Platform:</strong> Instagram</span><span><strong>Goal:</strong> Emotional resonance</span><span><strong>Format:</strong> Quote-graphic</span></div>
+          <div class="onimage">"You both know you won't."</div>
+          <div class="copy-block">"Send over a few examples of your work?"
+
+The recruiter says it casually, like it's nothing.
+
+You open your mouth to answer, and nothing comes. Two years of work: real work, hard work; and not one thing you can point to and say "here."
+
+"I'll... follow up on that," you say.</div>
+        </div>
+      </div>
+
+      <div class="day">
+        <div>
+          <div class="daylabel">Wed</div>
+          <span class="beat">Hinge</span>
+        </div>
+        <div>
+          <div class="meta-row"><span><strong>Platform:</strong> LinkedIn</span><span><strong>Goal:</strong> Land the emotional turn</span><span><strong>Format:</strong> Text-only</span></div>
+          <div class="copy-block">Proving your work shouldn't feel like a second job.
+
+You already did the hard part: the projects, the late nights, the problems you solved when no one else could. Somewhere along the way, keeping a record of it became its own exhausting task on top of the real one.
+
+It doesn't have to stay that way.</div>
+        </div>
+      </div>
+
+      <div class="day">
+        <div>
+          <div class="daylabel">Thu</div>
+          <span class="beat">Callback</span>
+        </div>
+        <div>
+          <div class="meta-row"><span><strong>Platform:</strong> Instagram</span><span><strong>Goal:</strong> Callback + implicit anticipation</span><span><strong>Format:</strong> Quote-graphic</span></div>
+          <div class="onimage">"Funny what a difference a week makes."</div>
+          <div class="copy-block">"Send over a few examples of your work?"
+
+This time, no scrambling. No stammering. Just: "Sure, give me a second."</div>
+        </div>
+      </div>
+
+      <div class="day">
+        <div>
+          <div class="daylabel">Fri</div>
+          <span class="beat">Reveal</span>
+        </div>
+        <div>
+          <div class="meta-row"><span><strong>Platform:</strong> LinkedIn &amp; Instagram</span><span><strong>Goal:</strong> Conversion</span><span><strong>Format:</strong> Reel: background product moment</span></div>
+          <div class="copy-block"><strong>LinkedIn:</strong> This week, we told you about the moment you're asked for proof of your work, and don't have any.
+
+That ends now.
+
+Introducing FullProof: the tool that quietly builds your career portfolio as you work, without ever touching a single confidential file. The burden of proof is on us, not you.
+
+Join the waitlist → [link]</div>
+          <div class="copy-block"><strong>Instagram:</strong> The moment someone asks for proof of your work, and you actually have it ready.
+
+That's FullProof. Your career portfolio, built quietly while you work. Nothing confidential. Nothing left out.
+
+The burden of proof is on us, not you.
+
+Join the waitlist, link in bio.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Exercise</span>
+    <h2>Same message, three platforms</h2>
+    <p style="max-width:60ch;color:#3A423F;">One core moment, reshaped, not duplicated, for each platform's native tone.</p>
+    <div class="platform-grid">
+      <div class="platform-card">
+        <h4>LinkedIn: narrative</h4>
+        <p>You're scrolling job postings. This one looks right: your experience, your field, decent pay.<br><br>Then you hit it: "Portfolio required."<br><br>Two years of work... and somehow, none of it exists anywhere you can actually show someone.<br><br>Has this happened to you?</p>
+      </div>
+      <div class="platform-card">
+        <h4>Instagram: visual-first</h4>
+        <p><em>On-image: "Portfolio required."</em><br><br>Scrolling job listings, minding your business, and then, those two words.<br><br>Two years of real work. Zero proof of it anywhere.<br><br>#JobSearch #CareerAdvice #PortfolioTips</p>
+      </div>
+      <div class="platform-card">
+        <h4>X: wry</h4>
+        <p>Job posting: "your experience, decent pay, apply now."<br><br>Also job posting: "portfolio required."<br><br>Cool cool cool, let me just conjure two years of work out of thin air real quick.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <span class="eyebrow">Range</span>
+    <h2>Standalone captions</h2>
+    <div class="caption-grid">
+      <div class="caption-card">
+        <h4>FullProof: Instagram</h4>
+        <p style="font-family:'Fraunces',serif;font-style:italic;font-size:1.1rem;">"Don't lose your marbles - our plan is FullProof."</p>
+        <p style="font-size:0.9rem;color:var(--muted);margin-top:10px;">"Marbles" as a metaphor for scattered proof of work, resolving into the brand's core promise.</p>
+      </div>
+      <div class="caption-card">
+        <h4>Seatbelt: TikTok script</h4>
+        <p style="font-size:0.9rem;color:var(--muted);margin-bottom:10px;">A mock mental wellbeing app. Tagline: <em>"When the ride gets shaky, we'll help you find your footing."</em></p>
+        <ol class="shot-list">
+          <li>POV, front seat of a roller coaster, just before the drop</li>
+          <li>The drop</li>
+          <li>The ride smoothly levels out</li>
+          <li>Cut to the Seatbelt logo</li>
+          <li>Tagline on screen</li>
+        </ol>
+        <p style="font-size:0.9rem;margin-top:10px;"><strong>CTA:</strong> "Please wear your seatbelt - link in bio."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    David Lipshitz | <a href="mailto:davidclipshitz@outlook.com">davidclipshitz@outlook.com</a>
+  </div>
+</footer>
+
+</body>
+</html>
